@@ -1,0 +1,35 @@
+#bin/bash
+apt install git php -y
+git clone https://github.com/fersepulveda/mkferse.git
+cat >start-mikhmon <<EOL
+#bin/bash
+cd mkferse
+php -S 0.0.0.0:8080 
+EOL
+cat >update-mikhmon <<EOL
+#bin/bash
+mkdir ~/backup-mikhmon
+cp ~/mkferse/include/config.php ~/backup-mikhmon/config.php
+cp -rf ~/mkferse/voucher/. ~/backup-mikhmon/voucher/
+cp -rf ~/mkferse/img/. ~/backup-mikhmon/img/
+rm -rf mkferse
+rm ~/backup-mikhmon/voucher/print.php
+rm ~/backup-mikhmon/voucher/printbt.php
+git clone https://github.com/fersepulveda/mkferse.git
+cp ~/backup-mikhmon/config.php ~/mkferse/include/config.php
+cp -rf ~/backup-mikhmon/voucher/. ~/mkferse/voucher/
+cp -rf ~/backup-mikhmon/img/. ~/mkferse/img/
+rm -rf ~/backup-mikhmon
+./start-mikhmon
+EOL
+cat >remove-mikhmon <<EOL
+#bin/bash
+rm -rf mkferse
+EOL
+cat >.bashrc <<EOL	
+~/start-mikhmon	
+EOL
+chmod +x start-mikhmon
+chmod +x update-mikhmon
+chmod +x remove-mikhmon
+./start-mikhmon
