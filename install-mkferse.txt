@@ -4,7 +4,7 @@ git clone https://github.com/fersepulveda/mkferse.git
 cat >start-mikhmon <<EOL
 #bin/bash
 cd mkferse
-php -S 0.0.0.0:8080 
+php -S 0.0.0.0:8080
 EOL
 cat >update-mikhmon <<EOL
 #bin/bash
